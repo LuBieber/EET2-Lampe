@@ -1,13 +1,16 @@
 #include <Arduino.h>
 #include <math.h>
-//Variablen
+
+//Variablen 
 int hell=0; //Taster1
 int dunkel=1; //Taster 2
-int nulldg = 6;
-int triac = 3;
-int zuendwinkel = 10; //in Grad
-int z_vor = 0;
+int nulldg = 6; //Nulldurchgangeingang
+int triac = 3; //Triacgate
 
+int amin = 6;  //min Zuendwinkel
+int amax = 176; //max Zuendwinkel
+int zuendwinkel = 10; //bei Start in Grad 
+int z_vor = 0;
 
 void setup() {
 pinMode(nulldg,INPUT);
@@ -17,16 +20,25 @@ pinMode(1,INPUT);
 }
 
 void loop() {
-if (digitalRead(hell)==1)
+//Dimm Taster
+if (digitalRead(hell)==1) //werden beide gedrückt wird es heller
 {
   zuendwinkel--;
-}
-
-if (digitalRead(dunkel)==1)
+}else if (digitalRead(dunkel)==1)
 {
   zuendwinkel++; 
 }
 
+//Begrenzen des Zuendwinkel
+if (zuendwinkel>amax)
+{
+  zuendwinkel=amax;
+}else if (zuendwinkel<amin)
+{
+  zuendwinkel=amin;
+}
+
+//Zünden
 if (digitalRead(nulldg)==1 && z_vor==0)
 {
   delayMicroseconds(round(pow(10,6)*zuendwinkel*0.01/180));
