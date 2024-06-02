@@ -9,9 +9,10 @@ pinMode(14,OUTPUT);
 
 void loop() {
   // put your main code here, to run repeatedly:
+int frequenz =1000/2;
 digitalWrite(14,HIGH);
-delay(1000/2);
+delay(frequenz);
 digitalWrite(14,LOW);
-delay(1000/2);
+delay(frequenz);
 }
 
