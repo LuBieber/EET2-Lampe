@@ -1,17 +1,22 @@
 #include <Arduino.h>
-
-// put function declarations here:
-int myFunction(int, int);
+//Variablen
+int An=0;
+int Aus=1;
 
 void setup() {
-pinMode(14,OUTPUT);
+pinMode(0,INPUT);
+pinMode(1,INPUT);
+pinMode(LED1,OUTPUT);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-digitalWrite(14,HIGH);
-delay(1000/2);
-digitalWrite(14,LOW);
-delay(1000/2);
+if (digitalRead(An)==1)
+{
+  digitalWrite(LED1,HIGH);
+}
+if (digitalRead(Aus)==1)
+{
+  digitalWrite(LED1,HIGH);
+}
 }
 
