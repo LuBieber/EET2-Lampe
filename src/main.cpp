@@ -1,10 +1,11 @@
 #include <Arduino.h>
+#include <math.h>
 //Variablen
 int nulldg = 6;
-int triac =3;
-int blinkabstand=1; //Zeit zwischen blinken in sekunden
-int ndg_counter;
-int needed_counter = 2*50*blinkabstand; //benötigter counter, da 2 Ndg in Periode 
+int triac = 3;
+int zuendwinkel = 10; //in Grad
+int t_s = round(pow(10,6)*zuendwinkel*0.01/180); //t_s in us
+
 
 void setup() {
 pinMode(nulldg,INPUT);
@@ -14,13 +15,15 @@ pinMode(triac,OUTPUT);
 void loop() {
 if (digitalRead(nulldg)==1)
 {
-  ndg_counter++;
-}
-if (ndg_counter%needed_counter==0)
-{
+  delayMicroseconds(t_s);
   digitalWrite(triac,HIGH);
   delayMicroseconds(10);
   digitalWrite(triac,LOW);
 }
+while (nulldg==1)
+{
+  //warten
+}
+
 }
 
