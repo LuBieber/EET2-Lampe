@@ -1,17 +1,26 @@
 #include <Arduino.h>
-
-// put function declarations here:
-int myFunction(int, int);
+//Variablen
+int nulldg = 6;
+int triac =3;
+int blinkabstand=1; //Zeit zwischen blinken in sekunden
+int ndg_counter;
+int needed_counter = 2*50*blinkabstand; //benötigter counter, da 2 Ndg in Periode 
 
 void setup() {
-pinMode(14,OUTPUT);
+pinMode(nulldg,INPUT);
+pinMode(triac,OUTPUT);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-digitalWrite(14,HIGH);
-delay(1000/2);
-digitalWrite(14,LOW);
-delay(1000/2);
+if (digitalRead(nulldg)==1)
+{
+  ndg_counter++;
+}
+if (ndg_counter%needed_counter==0)
+{
+  digitalWrite(triac,HIGH);
+  delayMicroseconds(10);
+  digitalWrite(triac,LOW);
+}
 }
 
