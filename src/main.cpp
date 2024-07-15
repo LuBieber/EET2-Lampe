@@ -33,3 +33,4 @@ if (digitalRead(hell)==1 && zuendwinkel>amin) //werden beide gedrückt wird es h
   zuendwinkel++; 
 }
 }
+//friedrich hat auch geholfen
